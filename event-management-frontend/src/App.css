@@ -2,41 +2,48 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  width: 1280px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+#container-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1{
+  line-height: 0.3;
+}
+h3{
+  line-height: 0.2;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+#profile-btn{
+  background-color: rgb(234, 234, 234);
+  border: 1.5px solid rgb(181, 181, 181);
 }
 
-.card {
-  padding: 2em;
+#content-flex{
+  margin-top: 16px;
+  display: flex;
+  gap: 20px;
 }
 
-.read-the-docs {
-  color: #888;
+.content-box{
+  flex: 1;
+  background-color: white;
+  border: 1.5px solid rgb(181, 181, 181);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+#form-submit{
+  width: 100%;
+  background-color: #535bf2;
+  color: white;
+}
+
+.form-ele-div{
+  margin: 10px 0;
+  width: 100%;
 }
