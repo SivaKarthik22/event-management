@@ -1,33 +1,67 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { timezones } from "../constants/timeZones";
+import ToastSlice from "../redux/ToastSlice";
+import dayjs from "dayjs";
 
 export default function EventForm() {
+    const updateToast = ToastSlice.actions.updateToast;
+    const dispatch = useDispatch();
+    const { allProfiles } = useSelector(store => store.profiles);
     const [formData, setFormData] = useState({
-        "profiles": null,
-        "timezone": "",
+        "timezone": "UTC",
         "startDate": "",
         "startTime": "",
         "endDate": "",
         "endTime": ""
     });
+    const [formProfileData, setFormProfileData] = useState({});
 
     const handleSubmit = event => {
         event.preventDefault();
-        const validationResult = formValid();
+        const validationResult = validateForm();
         if (validationResult != "OK") {
-            alert(validationResult);
+            dispatch(updateToast({
+                toastType: "warning",
+                toastTitle: "Warning",
+                toastContent: validationResult,
+                toastIsVisible: true,
+            }));
             return;
         }
+        //make api call
         console.log(formData);
     };
 
-    function formValid() {
-        /* if (!formData.name || !formData.email || formData.age < 10)
-            return false; */
-        return "not OK";
+    const getSelectedProfiles = () => {
+        return Object.keys(formProfileData).filter(key => formProfileData[key]);
+    }
+
+    function validateForm() {
+        const selectedProfiles = getSelectedProfiles();
+        let message = "OK";
+        if (selectedProfiles.length == 0 || !formData.timezone || !formData.startDate || !formData.startTime || !formData.endDate || !formData.endTime)
+            message = "*Fill all the fields to proceed."
+        else {
+            const startDay = dayjs(`${formData.startDate} ${formData.startTime}`);
+            const endDay = dayjs(`${formData.endDate} ${formData.endTime}`);
+            if (endDay.isBefore(startDay)) 
+                message = "End date and time should be later than Start date and time. "
+        }
+        return message;
     }
 
     const handleChange = event => {
         setFormData({ ...formData, [event.target.id]: event.target.value });
+    }
+
+    const handleProfilesSelection = event => {
+        setFormProfileData({ ...formProfileData, [event.target.id]: event.target.checked });
+    }
+
+    const displaySelectedProfilesCount = () => {
+        const count = Object.values(formProfileData).filter(value => value).length;
+        return `${count} profile${count > 1 ? "s" : ""} selected`;
     }
 
     return (
@@ -36,14 +70,19 @@ export default function EventForm() {
             <form onSubmit={handleSubmit}>
                 <div className="form-ele-div">
                     <label htmlFor="profiles">Profiles</label>
-                    <button id="profiles" onClick={handleChange}>{formData.profiles ?? "Select profiles..."}</button>
+                    <p>{displaySelectedProfilesCount()}</p>
+                    <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                        {allProfiles.map((profile, idx) => <div key={idx}>
+                            <label>{profile.name}</label>
+                            <input type="checkbox" id={profile._id} checked={formProfileData[profile._id] ?? false} onChange={handleProfilesSelection} />
+                        </div>)}
+                    </div>
                 </div>
 
                 <div className="form-ele-div">
                     <label htmlFor="timezone">Timezone</label>
                     <select id="timezone" onChange={handleChange} value={formData.timezone}>
-                        <option>IST</option>
-                        <option value="">Select Timezone</option>
+                        {timezones.map((timezone, idx) => <option value={timezone} key={idx}>{timezone}</option>)}
                     </select>
                 </div>
 

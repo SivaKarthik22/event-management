@@ -21,6 +21,8 @@ h3{
 #profile-btn{
   background-color: rgb(234, 234, 234);
   border: 1.5px solid rgb(181, 181, 181);
+  width: 100%;
+  text-align: left;
 }
 
 #content-flex{
@@ -46,4 +48,47 @@ h3{
 .form-ele-div{
   margin: 10px 0;
   width: 100%;
+}
+
+#profiles-list-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  transform: translateY(50px);
+  border: 1.5px solid rgb(181, 181, 181);
+}
+
+#profiles-list-container ul{
+  list-style: none;
+  padding: 0;
+}
+
+#profile-name-field{
+  flex:0.7;
+}
+#add-profile-btn{
+  flex:0.3;
+  background-color: #535bf2;
+  color: white;
+}
+
+.profile-list-item.selected{
+  background-color: #535bf2;
+  color: white;
+}
+
+#toast-container{
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 50%;
+  background-color: white;
+  padding: 15px;
+  border-radius: 6px;
 }

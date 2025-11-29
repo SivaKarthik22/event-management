@@ -1,20 +1,28 @@
-import { Provider } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import './App.css'
 import EventForm from './components/EventForm'
 import Header from './components/Header'
 import MyEvents from './components/MyEvents'
-import ReduxStore from './redux/ReduxStore'
+import Toast from './components/Toast'
+import { useEffect } from "react";
+import { getProfiles } from './redux/ProfileSlice'
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProfiles());
+  }, []);
 
   return (
-    <Provider store={ReduxStore}>
+    <>
       <Header />
       <div id="content-flex">
         <EventForm />
         <MyEvents />
       </div>
-    </Provider>
+      <Toast />
+    </>
   )
 }
 

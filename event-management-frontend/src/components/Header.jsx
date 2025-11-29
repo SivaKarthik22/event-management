@@ -1,14 +1,19 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getProfiles } from "../redux/ProfileSlice";
+import { useState } from "react";
+import {  useSelector } from "react-redux";
+
+import ProfilesList from "./ProfilesList";
 
 export default function Header(){
-    const {allProfiles} = useSelector(store => store.profiles);
-    const dispatch = useDispatch();
+    
+    const [profilesListVisible, setProfilesListVisible] = useState(false);
+    const {currentProfile} = useSelector(store => store.profiles);
 
-    useEffect(()=>{
-        dispatch(getProfiles());
-    },[]);
+    const toggleProfilesListVisibility = ()=>{
+        setProfilesListVisible(isVisibile => {
+            if(!isVisibile) return true;
+            return false;
+        });
+    };
 
     return(
         <div id="container-header">
@@ -16,8 +21,18 @@ export default function Header(){
                 <h1>Event Management</h1>
                 <p>Create and manage events across multiple timezones</p>
             </div>
-            <div>
-                <button id="profile-btn">Select current profile</button>
+            <div style={{position:"relative", height: "42px", width: "200px"}}>
+                <button
+                    id="profile-btn"
+                    onClick={toggleProfilesListVisibility}
+                >
+                    {currentProfile ? currentProfile.name : "Select current profile"}
+                </button>
+                <ProfilesList
+                    isVisible={profilesListVisible}
+                    setIsVisible={setProfilesListVisible}
+                    originId="profile-btn"
+                />
             </div>
         </div>
     );

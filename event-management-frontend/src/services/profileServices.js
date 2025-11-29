@@ -1,8 +1,8 @@
 import { profileAxiosInstance } from ".";
 
-export async function createProfile(values){
+export async function createProfile(value){
     try{
-        const response = await profileAxiosInstance.post("/create-profile", values);
+        const response = await profileAxiosInstance.post("/create-profile", value);
         return response.data;
     }
     catch(error){
