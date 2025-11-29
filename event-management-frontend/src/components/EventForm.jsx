@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { timezones } from "../constants/timeZones";
 import ToastSlice from "../redux/ToastSlice";
 import dayjs from "dayjs";
+import { createEvent } from "../services/eventServices";
+import { getEvents } from "../redux/EventSlice";
 
 export default function EventForm() {
     const updateToast = ToastSlice.actions.updateToast;
     const dispatch = useDispatch();
-    const { allProfiles } = useSelector(store => store.profiles);
+    const { allProfiles, currentProfile } = useSelector(store => store.profiles);
     const [formData, setFormData] = useState({
         "timezone": "UTC",
         "startDate": "",
@@ -17,7 +19,7 @@ export default function EventForm() {
     });
     const [formProfileData, setFormProfileData] = useState({});
 
-    const handleSubmit = event => {
+    async function handleSubmit(event) {
         event.preventDefault();
         const validationResult = validateForm();
         if (validationResult != "OK") {
@@ -29,8 +31,32 @@ export default function EventForm() {
             }));
             return;
         }
-        //make api call
-        console.log(formData);
+        const responseData = await createEvent({ ...formData, profiles: getSelectedProfiles() });
+        if (responseData.success) {
+            setFormData({
+                "timezone": "UTC",
+                "startDate": "",
+                "startTime": "",
+                "endDate": "",
+                "endTime": ""
+            });
+            setFormProfileData({});
+            dispatch(updateToast({
+                toastType: "success",
+                toastTitle: "Success",
+                toastContent: responseData.message,
+                toastIsVisible: true,
+            }));
+            dispatch(getEvents(currentProfile._id));
+        }
+        else{
+            dispatch(updateToast({
+                toastType: "error",
+                toastTitle: "Error",
+                toastContent: responseData.message,
+                toastIsVisible: true,
+            }));
+        }
     };
 
     const getSelectedProfiles = () => {
@@ -45,7 +71,7 @@ export default function EventForm() {
         else {
             const startDay = dayjs(`${formData.startDate} ${formData.startTime}`);
             const endDay = dayjs(`${formData.endDate} ${formData.endTime}`);
-            if (endDay.isBefore(startDay)) 
+            if (endDay.isBefore(startDay))
                 message = "End date and time should be later than Start date and time. "
         }
         return message;

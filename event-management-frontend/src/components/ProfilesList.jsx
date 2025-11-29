@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import ProfileSlice, { getProfiles } from "../redux/ProfileSlice";
 import { createProfile } from "../services/profileServices";
 import ToastSlice from "../redux/ToastSlice";
+import { getEvents } from "../redux/EventSlice";
 
 export default function ProfilesList({ isVisible, setIsVisible, originId }) {
     const { allProfiles, currentProfile } = useSelector(store => store.profiles);
@@ -71,6 +72,7 @@ export default function ProfilesList({ isVisible, setIsVisible, originId }) {
                             onClick={() => {
                                 dispatch(setCurrentProfile(profile));
                                 setIsVisible(false);
+                                dispatch(getEvents(profile._id));
                             }}
                             className={`${(currentProfile && profile._id == currentProfile._id) ? "selected " : ""}profile-list-item`}
                         >
