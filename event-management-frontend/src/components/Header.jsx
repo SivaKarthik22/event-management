@@ -1,19 +1,23 @@
-import { useState } from "react";
-import {  useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
 import ProfilesList from "./ProfilesList";
+import Modal from "./Modal";
+import ModalSlice from "../redux/ModalSlice";
+import { useEffect, useRef, useState } from "react";
 
 export default function Header(){
-    
-    const [profilesListVisible, setProfilesListVisible] = useState(false);
     const {currentProfile} = useSelector(store => store.profiles);
+    const setProfileListModalVisible = ModalSlice.actions.setProfileListModalVisible;
+    const dispatch = useDispatch();
+    const buttonRef = useRef(null);
+    const [stylingForProfileList, setStylingForProfileList] = useState({});
 
-    const toggleProfilesListVisibility = ()=>{
-        setProfilesListVisible(isVisibile => {
-            if(!isVisibile) return true;
-            return false;
+    useEffect(()=>{
+        setStylingForProfileList({
+            position:"absolute",
+            top: buttonRef.current.getBoundingClientRect().bottom,
+            left: buttonRef.current.getBoundingClientRect().left,
         });
-    };
+    }, []);
 
     return(
         <div id="container-header">
@@ -21,19 +25,17 @@ export default function Header(){
                 <h1>Event Management</h1>
                 <p>Create and manage events across multiple timezones</p>
             </div>
-            <div style={{position:"relative", height: "42px", width: "200px"}}>
-                <button
-                    id="profile-btn"
-                    onClick={toggleProfilesListVisibility}
-                >
-                    {currentProfile ? currentProfile.name : "Select current profile"}
-                </button>
-                <ProfilesList
-                    isVisible={profilesListVisible}
-                    setIsVisible={setProfilesListVisible}
-                    originId="profile-btn"
-                />
-            </div>
+            <button
+                id="profile-btn"
+                onClick={()=>{dispatch(setProfileListModalVisible(true))}}
+                style={{width: "200px"}}
+                ref={buttonRef}
+            >
+                {currentProfile ? currentProfile.name : "Select current profile"}
+            </button>
+            <Modal stateToUse="profiles" noBackground={true} closeOnClickOutside={true} styling={stylingForProfileList}>
+                <ProfilesList/>
+            </Modal>
         </div>
     );
 }
