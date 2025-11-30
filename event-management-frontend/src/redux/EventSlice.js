@@ -14,11 +14,19 @@ const EventSlice = createSlice({
     initialState: {
         eventsOfProfile: [],
         eventsLoading: false,
+        viewingTimezone: "UTC",
+        // selectedEvent: null,
     },
     reducers: {
         setEventsOfProfile: function(state, action){
             state.eventsOfProfile = action.payload;
-        }
+        },
+        setViewingTimezone: function(state, action){
+            state.viewingTimezone = action.payload;
+        },
+        /* setSelectedEvent: function(state, action){
+            state.selectedEvent = action.payload;
+        }, */
     },
     extraReducers: function (builder) {
         builder.addCase(getEvents.fulfilled, (state, action)=>{

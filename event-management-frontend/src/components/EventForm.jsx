@@ -66,13 +66,15 @@ export default function EventForm() {
     function validateForm() {
         const selectedProfiles = getSelectedProfiles();
         let message = "OK";
-        if (selectedProfiles.length == 0 || !formData.timezone || !formData.startDate || !formData.startTime || !formData.endDate || !formData.endTime)
+        if (!formData.timezone || !formData.startDate || !formData.startTime || !formData.endDate || !formData.endTime)
             message = "*Fill all the fields to proceed."
+        else if(selectedProfiles.length == 0)
+            message = "*Choose one or more profiles to proceed."
         else {
             const startDay = dayjs(`${formData.startDate} ${formData.startTime}`);
             const endDay = dayjs(`${formData.endDate} ${formData.endTime}`);
             if (endDay.isBefore(startDay))
-                message = "End date and time should be later than Start date and time. "
+                message = "*End date and time should be later than Start date and time. "
         }
         return message;
     }
