@@ -51,14 +51,9 @@ h3{
 }
 
 #profiles-list-container{
-  /* position: absolute;
-  top: 0;
-  left: 0; */
   background-color: white;
   border-radius: 8px;
   padding: 10px;
-  /* width: 100%; */
-  /* transform: translateY(50px); */
   border: 1.5px solid rgb(181, 181, 181);
 }
 
