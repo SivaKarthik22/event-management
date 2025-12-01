@@ -32,7 +32,7 @@ export default function LogsDisplay({eventObj}){
             data[i].diff = [];
 
             if(data[i-1].changes.profiles.length != data[i].changes.profiles.length)
-                data[i].diff.push("profiles");
+                data[i].diff.push("Profiles changed");
             else{
                 const set = new Set();
                 data[i-1].changes.profiles.forEach(profileId => set.add(profileId));
@@ -41,19 +41,15 @@ export default function LogsDisplay({eventObj}){
                     else break;
                 }
                 if(set.size != 0)
-                    data[i].diff.push("profiles");
+                    data[i].diff.push("Profiles changed");
             }
 
             if(data[i].changes.timezone != data[i-1].changes.timezone)
-                data[i].diff.push("timezone");
-            if(data[i].changes.startDate != data[i-1].changes.startDate)
-                data[i].diff.push("startDate");
-            if(data[i].changes.startTime != data[i-1].changes.startTime)
-                data[i].diff.push("startTime");
-            if(data[i].changes.endDate != data[i-1].changes.endDate)
-                data[i].diff.push("endTime");
-            if(data[i].changes.endTime != data[i-1].changes.endTime)
-                data[i].diff.push("endTime");
+                data[i].diff.push(`Timezone updated to ${data[i].changes.timezone}`);
+            if(data[i].changes.startDate != data[i-1].changes.startDate || data[i].changes.startTime != data[i-1].changes.startTime)
+                data[i].diff.push("Start date/time updated");
+            if(data[i].changes.endDate != data[i-1].changes.endDate || data[i].changes.endTime != data[i-1].changes.endTime)
+                data[i].diff.push("End date/time updated");
         }
 
         return data;
@@ -74,9 +70,7 @@ export default function LogsDisplay({eventObj}){
                             <p>Event Created at {formatDay(log.createdAt, viewingTimezone)}</p> : 
                             <>
                                 <p>Event Updated at {formatDay(log.createdAt, viewingTimezone)}</p>
-                                {log.diff.map((fieldName,index) => <p key={index}>
-                                    event {fieldName} updated {fieldName != "profiles" ? `to ${log.changes[fieldName]}` : "" }
-                                </p>)}
+                                {log.diff.map((change,index) => <p key={index}>{change}</p>)}
                             </>
                         }
                     </div>).reverse()

@@ -1,5 +1,10 @@
 export const timezones = [
-    "UTC",
+    "Asia/Kolkata",
+    "Asia/Tokyo",
+    "Asia/Shanghai",
+    "Asia/Singapore",
+    "Asia/Hong_Kong",
+    "Asia/Dubai",
     "America/New_York",
     "America/Chicago",
     "America/Denver",
@@ -12,11 +17,9 @@ export const timezones = [
     "Europe/Berlin",
     "Europe/Madrid",
     "Europe/Rome",
-    "Asia/Tokyo",
-    "Asia/Shanghai",
-    "Asia/Singapore",
-    "Asia/Hong_Kong",
-    "Asia/Dubai",
     "Australia/Sydney",
-    "Pacific/Auckland"
+    "Pacific/Auckland",
+    "UTC",
 ];
+
+export const defaultTimeZone = "Asia/Kolkata";

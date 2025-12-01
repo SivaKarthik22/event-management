@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchEventsOfProfile } from '../services/eventServices';
+import { defaultTimeZone } from '../utilities/timezones';
 
 export const getEvents = createAsyncThunk('eventSlice/getEvents', async (profileId)=>{
     return new Promise((resolve, reject)=>{
@@ -14,7 +15,7 @@ const EventSlice = createSlice({
     initialState: {
         eventsOfProfile: [],
         eventsLoading: false,
-        viewingTimezone: "UTC",
+        viewingTimezone: defaultTimeZone,
     },
     reducers: {
         setEventsOfProfile: function(state, action){

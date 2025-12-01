@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { timezones } from "../utilities/timeZones"; 
+import { defaultTimeZone, timezones } from "../utilities/timezones"; 
 import ToastSlice from "../redux/ToastSlice";
 import dayjs from "dayjs";
 import { createEvent, updateEvent } from "../services/eventServices";
@@ -12,7 +12,7 @@ export default function EventForm({ mode = "CREATE", prefilledFormData = null })
     const dispatch = useDispatch();
     const { allProfiles, currentProfile } = useSelector(store => store.profiles);
     const [formData, setFormData] = useState({
-        "timezone": "UTC",
+        "timezone": defaultTimeZone,
         "startDate": "",
         "startTime": "",
         "endDate": "",
@@ -59,7 +59,7 @@ export default function EventForm({ mode = "CREATE", prefilledFormData = null })
 
         if (responseData.success) {
             setFormData({
-                "timezone": "UTC",
+                "timezone": defaultTimeZone,
                 "startDate": "",
                 "startTime": "",
                 "endDate": "",
