@@ -13,15 +13,15 @@ export default function MyEvents() {
     }
 
     return (
-        <div className="content-box">
+        <div className="template-box content-box">
             <h3>Events</h3>
             <div className="form-ele-div">
-                <label htmlFor="timezone">View in Timezone</label>
-                <select id="timezone" onChange={handleTimezoneChange} value={viewingTimezone}>
+                <label className="medium-weight" htmlFor="timezone">View in Timezone</label>
+                <select id="timezone" className="input-fields" onChange={handleTimezoneChange} value={viewingTimezone}>
                     {timezones.map((timezone, idx) => <option value={timezone} key={idx}>{timezone}</option>)}
                 </select>
             </div>
-            <div>
+            <div className="scrollable" style={{height: "75%"}}>
                 {eventsOfProfile.map((eventObj,idx)=><EventDisplay key={idx} eventObj={eventObj}/>)}
             </div>
         </div>

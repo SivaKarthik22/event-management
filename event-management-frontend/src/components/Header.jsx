@@ -22,8 +22,8 @@ export default function Header(){
     return(
         <div id="container-header">
             <div>
-                <h1>Event Management</h1>
-                <p>Create and manage events across multiple timezones</p>
+                <h2>Event Management</h2>
+                <p className="small-size">Create and manage events across multiple timezones</p>
             </div>
             <button
                 id="profile-btn"

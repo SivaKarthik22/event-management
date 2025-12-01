@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { defaultTimeZone, timezones } from "../utilities/timezones"; 
+import { defaultTimeZone, timezones } from "../utilities/timezones";
 import ToastSlice from "../redux/ToastSlice";
 import dayjs from "dayjs";
 import { createEvent, updateEvent } from "../services/eventServices";
@@ -8,7 +8,7 @@ import { getEvents } from "../redux/EventSlice";
 import ModalSlice from "../redux/ModalSlice";
 
 export default function EventForm({ mode = "CREATE", prefilledFormData = null }) {
-    const {updateToast} = ToastSlice.actions;
+    const { updateToast } = ToastSlice.actions;
     const dispatch = useDispatch();
     const { allProfiles, currentProfile } = useSelector(store => store.profiles);
     const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ export default function EventForm({ mode = "CREATE", prefilledFormData = null })
         "endTime": ""
     });
     const [formProfileData, setFormProfileData] = useState({});
-    const {setEditFormModalVisible} = ModalSlice.actions;
+    const { setEditFormModalVisible } = ModalSlice.actions;
 
     useEffect(() => {
         if (mode != "EDIT" || !prefilledFormData)
@@ -52,10 +52,10 @@ export default function EventForm({ mode = "CREATE", prefilledFormData = null })
         }
 
         let responseData
-        if(mode != "EDIT")
+        if (mode != "EDIT")
             responseData = await createEvent({ ...formData, profiles: getSelectedProfiles() });
         else
-            responseData = await updateEvent({ ...formData, _id:prefilledFormData._id , profiles: getSelectedProfiles() });
+            responseData = await updateEvent({ ...formData, _id: prefilledFormData._id, profiles: getSelectedProfiles() });
 
         if (responseData.success) {
             setFormData({
@@ -73,8 +73,8 @@ export default function EventForm({ mode = "CREATE", prefilledFormData = null })
                 toastIsVisible: true,
             }));
             dispatch(getEvents(currentProfile._id));
-            
-            if(mode == "EDIT")
+
+            if (mode == "EDIT")
                 dispatch(setEditFormModalVisible(false));
         }
         else {
@@ -121,45 +121,49 @@ export default function EventForm({ mode = "CREATE", prefilledFormData = null })
     }
 
     return (
-        <div className="content-box">
+        <div className={`template-box content-box ${mode == "EDIT" ? "edit-box" : ""}`}>
             <h3>{mode == "EDIT" ? "Edit Event" : "Create Event"}</h3>
             <form>
                 <div className="form-ele-div">
-                    <label htmlFor="profiles">Profiles</label>
-                    <p>{displaySelectedProfilesCount()}</p>
-                    <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                        {allProfiles.map((profile, idx) => <div key={idx}>
+                    <label className="medium-weight" htmlFor="profiles">Profiles</label>
+                    <p style={{ lineHeight: 0.5 }} className="small-size">{displaySelectedProfilesCount()}</p>
+                    <div className="scrollable input-fields" id="profile-selection-container">
+                        {allProfiles.map((profile, idx) => <div className="profile-selection-unit" key={idx}>
                             <input type="checkbox" id={profile._id} checked={formProfileData[profile._id] ?? false} onChange={handleProfilesSelection} />
-                            <label>{profile.name}</label>
+                            <label >{profile.name}</label>
                         </div>)}
                     </div>
                 </div>
 
                 <div className="form-ele-div">
-                    <label htmlFor="timezone">Timezone</label>
-                    <select id="timezone" onChange={handleChange} value={formData.timezone}>
+                    <label className="medium-weight" htmlFor="timezone">Timezone</label>
+                    <select id="timezone" className="input-fields" onChange={handleChange} value={formData.timezone}>
                         {timezones.map((timezone, idx) => <option value={timezone} key={idx}>{timezone}</option>)}
                     </select>
                 </div>
 
                 <div className="form-ele-div">
-                    <label htmlFor="start">Start Date and Time</label>
-                    <input type="date" id="startDate" onChange={handleChange} value={formData.startDate} />
-                    <input type="time" id="startTime" onChange={handleChange} value={formData.startTime} />
+                    <label className="medium-weight" htmlFor="start">Start Date and Time</label>
+                    <div className="date-parent-container">
+                        <input type="date" id="startDate" className="input-fields" onChange={handleChange} value={formData.startDate} style={{flex:0.8}}/>
+                        <input type="time" id="startTime" className="input-fields" onChange={handleChange} value={formData.startTime} style={{flex:0.2}}/>
+                    </div>
                 </div>
 
                 <div className="form-ele-div">
-                    <label htmlFor="end">End Date and Time</label>
-                    <input type="date" id="endDate" onChange={handleChange} value={formData.endDate} />
-                    <input type="time" id="endTime" onChange={handleChange} value={formData.endTime} />
+                    <label className="medium-weight" htmlFor="end">End Date and Time</label>
+                    <div className="date-parent-container">
+                        <input type="date" id="endDate" className="input-fields" onChange={handleChange} value={formData.endDate} style={{flex:0.8}}/>
+                        <input type="time" id="endTime" className="input-fields" onChange={handleChange} value={formData.endTime} style={{flex:0.2}}/>
+                    </div>
                 </div>
             </form>
             {mode != "EDIT" ?
-                <button id="form-submit" onClick={handleSubmit}>+ Create Event</button>
+                <button id="form-submit" className="blue-btn" onClick={handleSubmit}>+ Create Event</button>
                 :
-                <div>
+                <div id="form-submit-edit">
                     <button onClick={() => dispatch(setEditFormModalVisible(false))}>Cancel</button>
-                    <button onClick={handleSubmit}>Update</button>
+                    <button className="blue-btn" onClick={handleSubmit}>Update Event</button>
                 </div>
             }
         </div>

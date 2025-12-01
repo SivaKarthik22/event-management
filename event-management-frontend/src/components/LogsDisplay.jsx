@@ -56,13 +56,13 @@ export default function LogsDisplay({eventObj}){
     }
 
     return(
-        <div className="template-box scrollable" style={{position:"relative", height:"80%"}}>
+        <div className="template-box" style={{position:"relative", height:"80vh"}}>
             <button
                 className="close-btn"
                 onClick={()=>{ dispatch(setLogsModalVisible(false)) }}
             >✕</button>
             <h3>Event History</h3>
-            <div>
+            <div className="scrollable" style={{height:"80%"}}>
                 {
                     logs.length == 0 ? "No Logs found!" :
                     logs.map((log,idx)=><div className="log-item-box" key={idx}>

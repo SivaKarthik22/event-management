@@ -43,7 +43,7 @@ export default function ProfilesList() {
     }
 
     return (
-        <div id="profiles-list-container">
+        <div id="profiles-list-container" className="template-box">
             {allProfiles.length == 0 ?
                 <p>No profiles found</p> :
                 <ul>
