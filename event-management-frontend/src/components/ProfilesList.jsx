@@ -8,12 +8,12 @@ import ModalSlice from "../redux/ModalSlice";
 
 export default function ProfilesList() {
     const { allProfiles, currentProfile } = useSelector(store => store.profiles);
-    const setCurrentProfile = ProfileSlice.actions.setCurrentProfile;
-    const updateToast = ToastSlice.actions.updateToast;
+    const {setCurrentProfile} = ProfileSlice.actions;
+    const {updateToast} = ToastSlice.actions;
     const dispatch = useDispatch();
     const [newProfileName, setNewProfileName] = useState("");
     const [showProfileNameInput, setShowProfileNameInput] = useState(false);
-    const setProfileListModalVisible = ModalSlice.actions.setProfileListModalVisible;
+    const {setProfileListModalVisible} = ModalSlice.actions;
 
     useEffect(() => {
         setNewProfileName("");

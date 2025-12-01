@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Header(){
     const {currentProfile} = useSelector(store => store.profiles);
-    const setProfileListModalVisible = ModalSlice.actions.setProfileListModalVisible;
+    const {setProfileListModalVisible} = ModalSlice.actions;
     const dispatch = useDispatch();
     const buttonRef = useRef(null);
     const [stylingForProfileList, setStylingForProfileList] = useState({});

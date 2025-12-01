@@ -1,11 +1,11 @@
-import { timezones } from "../constants/timeZones";
+import { timezones } from "../utilities/timezones";
 import { useDispatch, useSelector } from "react-redux";
 import EventDisplay from "./EventDisplay";
 import EventSlice from "../redux/EventSlice";
 
 export default function MyEvents() {
     const {eventsOfProfile, viewingTimezone} = useSelector(store => store.events);
-    const setViewingTimezone = EventSlice.actions.setViewingTimezone;
+    const {setViewingTimezone} = EventSlice.actions;
     const dispatch = useDispatch();
 
     const handleTimezoneChange = (event)=>{

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function Toast(){
     const { toastType, toastTitle, toastContent, toastIsVisible } = useSelector(store => store.toast);
-    const updateToast = ToastSlice.actions.updateToast;
+    const {updateToast} = ToastSlice.actions;
     const dispatch = useDispatch();
 
     useEffect(()=>{

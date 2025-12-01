@@ -33,7 +33,7 @@ const eventSchema = new mongoose.Schema({
 
 eventSchema.post('findOneAndUpdate', async function (doc, next) {
     try {
-        const update = this.getUpdate();
+        const update = this.getUpdate()["$set"];
         const logEntry = new LogModel({
             eventId: doc._id,
             action: 'updated',
@@ -50,6 +50,7 @@ eventSchema.post('save', async function (doc, next) {
         const logEntry = new LogModel({
             eventId: doc._id,
             action: 'created',
+            changes: doc,
         });
         await logEntry.save();
         next();

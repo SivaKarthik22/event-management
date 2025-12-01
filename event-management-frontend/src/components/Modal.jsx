@@ -28,7 +28,7 @@ export default function Modal({children, stateToUse, closeOnClickOutside=true, n
     return (
         <div
             id="modal-bg"
-            style={{backgroundColor: noBackground ? "none" : "rgba(0, 0, 0, 0.5);"}}
+            style={{backgroundColor: noBackground ? "none" : "rgba(0, 0, 0, 0.16)"}}
             onClick={event => {
             if (!closeOnClickOutside || modalRef.current.contains(event.target)) 
                 return;

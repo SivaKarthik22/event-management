@@ -18,6 +18,13 @@ h3{
   line-height: 0.2;
 }
 
+.template-box{
+  background-color: white;
+  border: 1.5px solid rgb(181, 181, 181);
+  padding: 1.25rem;
+  border-radius: 8px;
+}
+
 #profile-btn{
   background-color: rgb(234, 234, 234);
   border: 1.5px solid rgb(181, 181, 181);
@@ -97,4 +104,20 @@ h3{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.close-btn{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.scrrollable{
+  overflow-y: auto;
+}
+
+.log-item-box{
+  border: 1px solid rgb(181, 181, 181);
+  border-radius: 6px;
+  padding: 6px;
 }

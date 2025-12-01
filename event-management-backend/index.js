@@ -17,7 +17,7 @@ connectDB();
 app.use(express.json());
 app.use('/api/profiles', profileRouter);
 app.use('/api/events', eventRouter);
-app.use('api/logs', logRouter);
+app.use('/api/logs', logRouter);
 
 app.listen(8080, ()=>{
     console.log("server started at port 8080");

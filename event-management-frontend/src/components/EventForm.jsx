@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { timezones } from "../constants/timeZones";
+import { timezones } from "../utilities/timeZones"; 
 import ToastSlice from "../redux/ToastSlice";
 import dayjs from "dayjs";
 import { createEvent, updateEvent } from "../services/eventServices";
@@ -8,7 +8,7 @@ import { getEvents } from "../redux/EventSlice";
 import ModalSlice from "../redux/ModalSlice";
 
 export default function EventForm({ mode = "CREATE", prefilledFormData = null }) {
-    const updateToast = ToastSlice.actions.updateToast;
+    const {updateToast} = ToastSlice.actions;
     const dispatch = useDispatch();
     const { allProfiles, currentProfile } = useSelector(store => store.profiles);
     const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ export default function EventForm({ mode = "CREATE", prefilledFormData = null })
         "endTime": ""
     });
     const [formProfileData, setFormProfileData] = useState({});
-    const setEditFormModalVisible = ModalSlice.actions.setEditFormModalVisible;
+    const {setEditFormModalVisible} = ModalSlice.actions;
 
     useEffect(() => {
         if (mode != "EDIT" || !prefilledFormData)
