@@ -19,11 +19,3 @@ export async function fetchAllProfiles(){
         return error.response.data;
     }
 }
-
-/* export function fetchAllProfiles(){
-    return new Promise((resolve, reject)=>{
-        profileAxiosInstance.get('/get-all-profiles')
-        .then(response => {resolve(response.data)} )
-        .catch(error => {reject(error.response.data)} );
-    });
-} */
