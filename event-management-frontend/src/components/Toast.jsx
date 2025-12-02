@@ -18,7 +18,7 @@ export default function Toast(){
                 toastContent: "",
                 toastIsVisible: false,
             }));
-        }, 5000);
+        }, 3000);
 
         return ()=> {
             if(timeoutId)

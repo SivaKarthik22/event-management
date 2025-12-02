@@ -45,7 +45,7 @@ export default function ProfilesList() {
     return (
         <div id="profiles-list-container" className="template-box">
             {allProfiles.length == 0 ?
-                <p>No profiles found</p> :
+                <p style={{padding:"0 6px"}}>No profiles found</p> :
                 <ul className="scrollable" style={{maxHeight:"200px"}}>
                     {allProfiles.map((profile, idx) => <li key={idx}>
                         <button
