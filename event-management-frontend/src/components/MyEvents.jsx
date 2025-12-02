@@ -21,7 +21,7 @@ export default function MyEvents() {
                     {timezones.map((timezone, idx) => <option value={timezone} key={idx}>{timezone}</option>)}
                 </select>
             </div>
-            <div className="scrollable" style={{height: "75%"}}>
+            <div className="scrollable column-flex" style={{height: "75%"}}>
                 {eventsOfProfile.map((eventObj,idx)=><EventDisplay key={idx} eventObj={eventObj}/>)}
             </div>
         </div>

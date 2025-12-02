@@ -30,9 +30,9 @@ export default function Toast(){
         return "";
 
     return (
-        <div id="toast-container" className={toastType}>
+        <div id="toast-container" className={`${toastType} template-box`}>
             <h3>{toastTitle}</h3>
-            <p>{toastContent}</p>
+            <p style={{margin:0}}>{toastContent}</p>
         </div>
     );
 }

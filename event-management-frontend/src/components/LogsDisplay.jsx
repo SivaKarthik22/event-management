@@ -56,20 +56,20 @@ export default function LogsDisplay({eventObj}){
     }
 
     return(
-        <div className="template-box" style={{position:"relative", height:"80vh"}}>
+        <div className="template-box" style={{position:"relative", height:"80vh", width:"400px"}}>
             <button
                 className="close-btn"
                 onClick={()=>{ dispatch(setLogsModalVisible(false)) }}
             >✕</button>
             <h3>Event History</h3>
-            <div className="scrollable" style={{height:"80%"}}>
+            <div className="scrollable column-flex" style={{height:"90%", marginTop:"20px"}}>
                 {
                     logs.length == 0 ? "No Logs found!" :
                     logs.map((log,idx)=><div className="log-item-box" key={idx}>
                         {log.action == "created" ? 
-                            <p>Event Created at {formatDay(log.createdAt, viewingTimezone)}</p> : 
+                            <p><span className="medium-weight">Event Created</span> <span className="small-size"> at {formatDay(log.createdAt, viewingTimezone)}</span></p> : 
                             <>
-                                <p>Event Updated at {formatDay(log.createdAt, viewingTimezone)}</p>
+                                <p><span className="medium-weight">Event Updated</span> <span className="small-size"> at {formatDay(log.createdAt, viewingTimezone)}</span></p>
                                 {log.diff.map((change,index) => <p key={index}>{change}</p>)}
                             </>
                         }

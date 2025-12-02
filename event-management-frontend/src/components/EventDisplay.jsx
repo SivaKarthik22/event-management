@@ -21,13 +21,13 @@ export default function EventDisplay({ eventObj }) {
 
     return (
         <>
-            <div className="event-box">
-                <p>👤 {eventObj.profiles.map(profile => profile.name).join(", ")}</p>
-                <p><span>Start: </span>{convertAndFormatDay(startDate, startTime, timezone, viewingTimezone)}</p>
-                <p><span>End: </span>{convertAndFormatDay(endDate, endTime, timezone, viewingTimezone)}</p>
-                <p><span>Created at: </span>{formatDay(createdAt, viewingTimezone)}</p>
-                <p><span>Updated at: </span>{formatDay(updatedAt, viewingTimezone)}</p>
-                <div>
+            <div className="event-box template-box">
+                <p style={{marginTop:"3px"}} className="medium-weight">👤 {eventObj.profiles.map(profile => profile.name).join(", ")}</p>
+                <p style={{marginBottom:"8px"}}><span className="medium-weight">Start: </span>{convertAndFormatDay(startDate, startTime, timezone, viewingTimezone)}</p>
+                <p><span className="medium-weight">End: </span>{convertAndFormatDay(endDate, endTime, timezone, viewingTimezone)}</p>
+                <p className="small-size" style={{marginBottom:"5px"}}><span>Created at: </span>{formatDay(createdAt, viewingTimezone)}</p>
+                <p className="small-size"><span>Updated at: </span>{formatDay(updatedAt, viewingTimezone)}</p>
+                <div id="event-display-footer">
                     <button onClick={handleEditBtnClick}>Edit</button>
                     <button onClick={handleLogsBtnClick}>View Logs</button>
                 </div>

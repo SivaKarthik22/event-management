@@ -12,8 +12,7 @@
 }
 
 h2{
-  line-height: 0.3;
-  margin: 5px 0;
+  margin: 0 0;
 }
 h3{
   margin: 0;
@@ -29,7 +28,7 @@ h3{
 #profile-btn{
   background-color: rgb(234, 234, 234);
   border: 1.5px solid rgb(181, 181, 181);
-  width: 100%;
+  width: 210px;
   text-align: left;
 }
 
@@ -58,7 +57,7 @@ h3{
 
 #form-submit-edit{
   display: flex;
-  gap: 10px;
+  gap: 6px;
   justify-content: end;
   margin: 30px 0;
 }
@@ -77,6 +76,7 @@ h3{
   flex-wrap: wrap;
   max-height: 50px;
   padding: 6px;
+  min-height: 25px
 }
 
 .input-fields{
@@ -104,26 +104,32 @@ h3{
 }
 
 #profiles-list-container{
-  padding: 10px;
+  padding: 6px;
+  width: 200px;
 }
 
 #profiles-list-container ul{
   list-style: none;
   padding: 0;
+  margin: 0;
+}
+
+.profile-list-item{
+  width: 100%;
+  background: none;
+  text-align: left;
+}
+#selected-profile-list-item{
+  background-color: #535bf2;
+  color: white;
 }
 
 #profile-name-field{
-  flex:0.7;
+  width: 75%;
 }
 #add-profile-btn{
-  flex:0.3;
-  background-color: #535bf2;
-  color: white;
-}
-
-.profile-list-item.selected{
-  background-color: #535bf2;
-  color: white;
+  width: 25%;
+  padding: 0.6em;
 }
 
 #toast-container{
@@ -133,9 +139,8 @@ h3{
   transform: translateX(-50%);
   z-index: 100;
   width: 50%;
-  background-color: white;
-  padding: 15px;
-  border-radius: 6px;
+  max-width: 600px;
+  background-color: #dcdcdc;
 }
 
 #modal-bg{
@@ -160,9 +165,12 @@ h3{
 }
 
 .log-item-box{
-  border: 1px solid rgb(181, 181, 181);
+  border: 1px solid rgb(205, 205, 205);
   border-radius: 6px;
-  padding: 6px;
+  padding: 15px;
+}
+.log-item-box p{
+  margin: 0;
 }
 
 .edit-box{
@@ -178,4 +186,34 @@ h3{
 
 .small-size{
   font-size:smaller;
+}
+
+#event-display-footer{
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-top: 20px;
+}
+#event-display-footer button{
+  width: 100%;
+}
+
+.column-flex{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-box{
+  padding: 16px;
+}
+
+.event-box p{
+  margin-top: 0;
+}
+
+@media screen and (max-width: 700px) {
+  #content-flex{
+    flex-direction: column;
+  }
 }

@@ -8,12 +8,12 @@ import ModalSlice from "../redux/ModalSlice";
 
 export default function ProfilesList() {
     const { allProfiles, currentProfile } = useSelector(store => store.profiles);
-    const {setCurrentProfile} = ProfileSlice.actions;
-    const {updateToast} = ToastSlice.actions;
+    const { setCurrentProfile } = ProfileSlice.actions;
+    const { updateToast } = ToastSlice.actions;
     const dispatch = useDispatch();
     const [newProfileName, setNewProfileName] = useState("");
     const [showProfileNameInput, setShowProfileNameInput] = useState(false);
-    const {setProfileListModalVisible} = ModalSlice.actions;
+    const { setProfileListModalVisible } = ModalSlice.actions;
 
     useEffect(() => {
         setNewProfileName("");
@@ -46,7 +46,7 @@ export default function ProfilesList() {
         <div id="profiles-list-container" className="template-box">
             {allProfiles.length == 0 ?
                 <p>No profiles found</p> :
-                <ul>
+                <ul className="scrollable" style={{maxHeight:"200px"}}>
                     {allProfiles.map((profile, idx) => <li key={idx}>
                         <button
                             onClick={() => {
@@ -54,7 +54,7 @@ export default function ProfilesList() {
                                 dispatch(setProfileListModalVisible(false));
                                 dispatch(getEvents(profile._id));
                             }}
-                            className={`${(currentProfile && profile._id == currentProfile._id) ? "selected " : ""}profile-list-item`}
+                            className="profile-list-item" id={(currentProfile && profile._id == currentProfile._id) ? "selected-profile-list-item" : ""}
                         >
                             {(currentProfile && profile._id == currentProfile._id) ? "✔ " : ""}
                             {profile.name}
@@ -62,12 +62,16 @@ export default function ProfilesList() {
                     </li>)}
                 </ul>
             }
-            <div style={{ display: "flex", gap: "5px" }}>
-                {showProfileNameInput ? <>
-                    <input type="text" id="profile-name-field" onChange={event => { setNewProfileName(event.target.value) }} value={newProfileName} />
-                    <button id="add-profile-btn" onClick={handleAddProfileBtnClick}>Add</button>
-                </> :
-                    <button onClick={() => { setShowProfileNameInput(true) }}>+ Add New Profile</button>
+            <div style={{ marginTop: "10px", width: "100%" }}>
+                {showProfileNameInput ?
+                    <div style={{ display: "flex", gap: "4px" }}>
+                        <input className="input-fields" type="text" id="profile-name-field" onChange={event => { setNewProfileName(event.target.value) }} value={newProfileName} />
+                        <button id="add-profile-btn" className="blue-btn" onClick={handleAddProfileBtnClick}>Add</button>
+                    </div> :
+                    <button
+                        style={{width:"100%"}}
+                        onClick={() => { setShowProfileNameInput(true) }}
+                    >+ Add New Profile</button>
                 }
             </div>
         </div>
